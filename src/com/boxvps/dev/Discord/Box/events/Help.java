@@ -16,10 +16,10 @@ public class Help extends ListenerAdapter {
         if (args[0].equalsIgnoreCase(Info.PREFIX + "help")) {
             EmbedBuilder eb = new EmbedBuilder();
             // Setup Owner Help Command
-            if (event.getAuthor() == event.getGuild().getMemberById("796931844179312604") || event.getAuthor() == event.getGuild().getMemberById("237768953739476993")) {
+            if(event.getMember().getUser().getId().equals("79693184417931264") || event.getMember().getUser().getId().equals("237768953739476993")) {
                 eb.setTitle(":wrench: Owner Help");
                 eb.setColor(Info.FLAMINGO);
-                eb.setDescription("");
+                
 
                 event.getAuthor().openPrivateChannel().queue((channel) -> {
                     channel.sendMessage(eb.build()).completeAfter(2, TimeUnit.SECONDS);
