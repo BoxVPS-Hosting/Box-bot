@@ -22,7 +22,9 @@ public class Help extends ListenerAdapter {
                 
 
                 event.getAuthor().openPrivateChannel().queue((channel) -> {
-                    channel.sendMessage(eb.build()).completeAfter(2, TimeUnit.SECONDS);
+                    channel.sendMessage(eb.build()).queue((message) -> {
+                        message.delete().queueAfter(120, TimeUnit.SECONDS);
+                    });
                 });
             }
             // Setup Support Staff Help Command
@@ -34,8 +36,6 @@ public class Help extends ListenerAdapter {
             else if (event.getAuthor().isBot() || event.getAuthor().isFake()) {
                 return;
             }
-
-            event.getChannel().sendMessage(eb.build()).queue();
         }
 
     }
