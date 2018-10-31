@@ -14,6 +14,7 @@ public class Info {
     // End of Box VPS Color Palette color definitions
     // Start of random color definitions
     public static Integer ERROR_RED = 0xff5555;
+    public static Integer LIME_GREEN = 0x20cc1a;
     // End of random color definitions
 
 }

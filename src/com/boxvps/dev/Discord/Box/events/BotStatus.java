@@ -18,7 +18,7 @@ public class BotStatus extends ListenerAdapter {
         
         EmbedBuilder eb = new EmbedBuilder();
 
-        if (args[0].equalsIgnoreCase(Info.PREFIX + "botstatus")) {
+        if (args[0].equalsIgnoreCase(Info.PREFIX + "botstatus") || args[0].equalsIgnoreCase(Info.PREFIX + "bts")) {
             if(event.getMember().getUser().getId().equals("79693184417931264") || event.getMember().getUser().getId().equals("237768953739476993")){
                 eb.setTitle(":bar_chart: Box Bot Status");
                 eb.setColor(Info.SUNRISE);
@@ -29,7 +29,7 @@ public class BotStatus extends ListenerAdapter {
 
                 event.getAuthor().openPrivateChannel().queue((channel) -> {
                     channel.sendMessage(eb.build()).queue((message) -> {
-                        message.delete().queueAfter(60, TimeUnit.SECONDS);
+                        message.delete().queueAfter(30, TimeUnit.SECONDS);
                     });
                     eb.clearFields();
                 });                
