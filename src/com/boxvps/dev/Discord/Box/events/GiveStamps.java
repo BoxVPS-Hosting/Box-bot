@@ -12,46 +12,52 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 public class GiveStamps extends ListenerAdapter {
-    
+
     Integer oldCount;
     Integer newCount;
     Connection sqlCon;
 
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event){
+    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
-        if(args.length >= 15){
+        if (args.length >= 15) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 sqlCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/Box", "root", "PUT PASSWORD HERE");
                 Statement sqlStatement = sqlCon.createStatement();
 
-                ResultSet sqlResult = sqlStatement.executeQuery("SELECT `stamps` FROM `accounts` WHERE `discord_id`='" + event.getMember().getUser().getId().toString() + "'");
+                ResultSet sqlResult = sqlStatement
+                        .executeQuery("SELECT `stamps_amount` FROM `accounts` WHERE `discord_id`='"
+                                + event.getMember().getUser().getId().toString() + "'");
 
-                while(sqlResult.next())oldCount = sqlResult.getInt(1);
-                
+                while (sqlResult.next())
+                    oldCount = sqlResult.getInt(1);
+
                 newCount = oldCount + 1;
 
-                sqlStatement.execute("UPDATE `accounts` SET `statmps_amount`='" + newCount + "', `discord`='" + event.getMember().getUser().getName().toString() + "#" + event.getMember().getUser().getDiscriminator().toString() + "' WHERE `discord_id`='" + event.getMember().getUser().getId().toString() + "'");
+                sqlStatement.execute("UPDATE `accounts` SET `stamps_amount`='" + newCount + "', `discord_username`='"
+                        + event.getMember().getUser().getName().toString() + "#"
+                        + event.getMember().getUser().getDiscriminator().toString() + "' WHERE `discord_id`='"
+                        + event.getMember().getUser().getId().toString() + "'");
                 sqlCon.close();
 
                 EmbedBuilder eb = new EmbedBuilder();
 
-                eb.setAuthor("New Stamp!", event.getMember().getUser().getAvatarUrl() , event.getMember().getUser().getAvatarUrl());
+                eb.setAuthor("New Stamp!", event.getMember().getUser().getAvatarUrl(),
+                        event.getMember().getUser().getAvatarUrl());
                 eb.setColor(Info.LIME_GREEN);
-                eb.setDescription("Congratulations " + event.getMember().getAsMention() + ", you just gained a stamp! \n Your current stamp count is **" + newCount + "**");
+                eb.setDescription("Congratulations " + event.getMember().getAsMention()
+                        + ", you just gained a stamp! \n Your current stamp count is **" + newCount + "**");
                 eb.setFooter("Box Stamp Counter", Info.LOGO);
 
-               //event.getChannel().sendTyping().queue( ( channel ) -> {
-                    event.getChannel().sendMessage(eb.build()).queue();
-               // });
+                // event.getChannel().sendTyping().queue( ( channel ) -> {
+                event.getChannel().sendMessage(eb.build()).queue();
+                // });
 
-
-            }catch(Exception e) {
-                System.out.println(e);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-
 
     }
 

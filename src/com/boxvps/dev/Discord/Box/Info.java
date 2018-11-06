@@ -15,6 +15,7 @@ public class Info {
     // Start of random color definitions
     public static Integer ERROR_RED = 0xff5555;
     public static Integer LIME_GREEN = 0x20cc1a;
+    public static Integer YELLOW = 0xfff200;
     // End of random color definitions
 
 }

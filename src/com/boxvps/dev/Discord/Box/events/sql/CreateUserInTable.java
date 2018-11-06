@@ -21,7 +21,7 @@ public class CreateUserInTable extends ListenerAdapter{
                 sqlStatement.execute("INSERT INTO `accounts`(`stamps_amount` , `discord` , `discord_id`) VALUES('0', '" + event.getMember().getUser().getName().toString() + "#" + event.getMember().getUser().getDiscriminator().toString() + "', '" + event.getMember().getUser().getId().toString()+ "')");
 
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 

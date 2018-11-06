@@ -25,7 +25,7 @@ public class CreateUserCMD extends ListenerAdapter {
 
 	                sqlStatement.execute("INSERT INTO `accounts`(`stamps_amount` , `discord` , `discord_id`) VALUES('0', '" + event.getMessage().getMentionedMembers().get(0).getUser().getName().toString() + "#" + event.getMessage().getMentionedMembers().get(0).getUser().getDiscriminator().toString() + "', '" + event.getMessage().getMentionedMembers().get(0).getUser().getId().toString()+ "')");
 				}catch(Exception e) {
-					System.out.println(e);
+					e.printStackTrace();
 				}
 			}
 		}

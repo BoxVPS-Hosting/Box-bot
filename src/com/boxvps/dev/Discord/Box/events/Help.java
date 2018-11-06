@@ -13,7 +13,7 @@ public class Help extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
-        if (args[0].equalsIgnoreCase(Info.PREFIX + "help")) {
+        if (args[0].equalsIgnoreCase(Info.PREFIX + "help") || args[0].equalsIgnoreCase(Info.PREFIX + "h") || args[0].equalsIgnoreCase(Info.PREFIX + "hep")) {
             EmbedBuilder eb = new EmbedBuilder();
             // Setup Owner Help Command
             if(event.getMember().getUser().getId().equals("79693184417931264") || event.getMember().getUser().getId().equals("237768953739476993")) {
